@@ -1,0 +1,28 @@
+POST http://localhost:7100/api/users
+Content-Type: application/json
+
+{
+  "name": "Klaus Dieter",
+  "matchesPerLeague": 4,
+  "leagueIds": ["bl1", "ucl", "dfb"]
+}
+
+###
+
+PUT http://localhost:7100/api/users/2
+Content-Type: application/json
+
+{
+  "name": "Tina Smith",
+  "matchesPerLeague": 2,
+  "leagueIds": ["bl1"]
+}
+
+###
+
+PATCH http://localhost:7100/api/users/1/leagues/bl1
+
+
+###
+
+GET http://localhost:7100/api/users/2

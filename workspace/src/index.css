@@ -2,11 +2,31 @@
 /* this CSS code is in NO WAY BEST PRACTICES */
 /* it is optimized for our training use-case */
 /* */
-/* Tailwinds "@apply" directive: https://v3.tailwindcss.com/docs/reusing-styles#extracting-classes-with-apply */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Tailwinds "@apply" directive: https://tailwindcss.com/docs/functions-and-directives#apply-directive */
+@import "tailwindcss";
+@import "../public/fonts/google-fonts.css";
 
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 767px;
+  --breakpoint-md: 1024px;
+  --breakpoint-lg: 1100px;
+}
+
+@theme inline {
+  --font-roboto-slab: "Roboto Slab", var(--font-sans);
+  --font-open-sans: "Open Sans", var(--font-sans);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 @layer components {
   h1 {
     @apply text-2xl font-bold;
@@ -17,27 +37,20 @@
   }
 
   a {
-    @apply cursor-pointer text-blue-700 underline;
+    @apply cursor-pointer font-bold text-sky-900 hover:underline;
   }
 
   button {
     @apply inline-flex cursor-pointer self-center rounded-lg border-0 bg-amber-500 px-2 py-1 text-stone-100 hover:bg-amber-600;
   }
 
-  button:hover,
-  a {
-    @apply border-amber-500;
-  }
-  button:disabled {
-    @apply border-amber-500 hover:bg-amber-500;
-  }
+  /*form {*/
+  /*  @apply flex flex-col gap-y-8 p-4;*/
+  /*}*/
 
-  form {
-    @apply flex flex-col gap-y-8 rounded-lg border-2 p-4;
-  }
-
-  form > button[type="submit"] {
-    @apply self-start p-2 text-xl;
+  form > button[type="submit"],
+  .SubmitButton {
+    @apply self-start px-8 py-2 text-xl;
   }
 
   label {
@@ -58,75 +71,59 @@
     @apply rounded-lg border px-2 py-2;
   }
 
-  .CardImage {
-    @apply relative w-48 border-4 border-white;
+  .PageTitle {
+    @apply flex items-center justify-center text-3xl text-sky-900 uppercase;
   }
 
-  .CardImageDecoration img {
-    @apply border-4 border-lime-600;
+  .TwoColumnLayout {
+    @apply grid h-full grid-cols-[2fr_1fr] gap-4;
   }
 
-  .CardImage img {
-    @apply h-full rounded-lg;
+  .TwoColumnLayout > :nth-child(1) {
+    @apply pt-4;
+  }
+  .TwoColumnLayout > :nth-child(2) {
+    @apply border-l border-gray-200 p-4;
   }
 
-  .CardImageCaption {
-    @apply absolute bottom-2 left-1/2 -translate-x-1/2 transform rounded bg-black bg-opacity-50 px-2 py-1 text-center text-xs text-white;
+  .Sidebar__Title {
+    @apply mb-4 flex items-center justify-center text-2xl text-sky-900 uppercase;
   }
 
-  .CardImageSelector {
-    @apply flex space-x-4;
+  .MatchGroup {
+    @apply border-b border-b-gray-200 pb-8 text-gray-700;
   }
 
-  /*.CardImageSelector button {*/
-  /*  @apply inline-flex self-center rounded-lg border-0 bg-amber-500 text-stone-100 hover:bg-amber-600;*/
-  /*}*/
-
-  .CardImageSelector button:disabled {
-    @apply bg-stone-100 text-stone-500 hover:bg-stone-100;
+  .MatchGroup h2 {
+    @apply text-sky-900;
   }
 
-  .CardImageSelectorImage {
-    @apply cursor-pointer rounded-lg border-2 border-white p-0.5;
+  .MatchRow {
+    @apply mt-2 grid grid-cols-[8rem_1fr_auto] gap-x-12;
   }
 
-  button.CardImageSelectorImage {
-    @apply bg-white;
+  .MatchRow > :nth-child(1) {
+    @apply truncate;
   }
 
-  button.CardImageSelectorImage:hover {
-    @apply border-rose-300;
-  }
-  button.CardImageSelectorImage.selected {
-    @apply border-indigo-500;
+  .MatchDayRow {
+    @apply mt-2 grid grid-cols-[1fr_auto] gap-x-12;
   }
 
-  .CardList {
-    @apply flex flex-col items-center gap-y-4;
+  .MatchPageLayout {
+    @apply mx-auto mt-4 flex max-w-[600px] flex-col gap-y-8;
   }
 
-  .CardListCard {
-    @apply flex w-[40rem] items-start gap-x-4 rounded-lg border border-stone-200 p-4;
+  .SettingsForm {
+    @apply grid grid-cols-[auto_1fr] items-center gap-x-4 gap-y-8;
   }
 
-  .CardListCard a {
-    @apply self-start;
+  .MultiSelect {
+    @apply flex flex-col space-y-4;
   }
 
-  .CardListCard p {
-    @apply max-w-72;
-  }
-  .CardDisplay {
-    @apply mt-8 flex max-w-[60rem] flex-col items-center justify-center gap-y-8 rounded-lg border-2 border-stone-200 p-8;
-  }
-  .CardDisplay .CardImage {
-    @apply w-[40rem];
-  }
-  .CardDisplay .CardImageCaption {
-    @apply text-lg;
-  }
-  .CardDisplay p {
-    @apply text-2xl italic;
+  .MultiSelect__Option {
+    @apply flex items-center justify-between space-x-2 border-b border-b-gray-200 pb-4;
   }
 }
 

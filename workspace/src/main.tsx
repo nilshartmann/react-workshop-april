@@ -1,19 +1,8 @@
-import { createRoot } from "react-dom/client";
 import "./index.css";
-import { RouterProvider, createRouter } from "@tanstack/react-router";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./create-query-client.ts";
 
-import { routeTree } from "./routeTree.gen";
+import { createRoot } from "react-dom/client";
 
-const router = createRouter({ routeTree });
-
-// Register the router instance for type safety
-declare module "@tanstack/react-router" {
-  interface Register {
-    router: typeof router;
-  }
-}
+import App from "./components/App.tsx";
 
 const rootElement = document.getElementById("root");
 
@@ -22,7 +11,7 @@ if (rootElement === null) {
 }
 
 createRoot(rootElement).render(
-  <QueryClientProvider client={queryClient}>
-    <RouterProvider router={router} />
-  </QueryClientProvider>,
+  <div className={"container mx-auto pt-8"}>
+    <App />
+  </div>,
 );
