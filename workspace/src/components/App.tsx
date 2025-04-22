@@ -3,6 +3,7 @@ import { Match } from "../types.ts";
 import { Matches } from "@tanstack/react-router";
 import MatchesByLeagueList from "./MatchesByLeagueList.tsx";
 import { generateDummyMatchItems } from "../dummy-data.ts";
+import SettingsForm from "./SettingsForm.tsx";
 
 const ersterSpielTag: Match = {
   id: "m1",
@@ -31,7 +32,9 @@ export default function App() {
     <div className={"container mx-auto pt-8"}>
       {/*<MatchRow match={ersterSpielTag}/>*/}
       {/*<MatchRow match={zweiterSpielTag}/>*/}
-      <MatchesByLeagueList matchesByLeagueList={leagues} />
+      {/*<MatchesByLeagueList matchesByLeagueList={leagues} />*/}
+      <SettingsForm />
+
     </div>
   );
 }
