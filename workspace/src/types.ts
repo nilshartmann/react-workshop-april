@@ -1,15 +1,19 @@
 export type Match = {
-  id: string,
+  id: string;
 
-  matchDay: string,
+  matchDay: string;
 
-  homeTeam: string,
-  awayTeam: string,
+  homeTeam: string;
+  awayTeam: string;
 
-  homeGoals: number,
-  awayGoals: number
-}
+  homeGoals: number;
+  awayGoals: number;
+};
 
+export type League = {
+  id: string;
+  name: string;
+};
 
 // interface IMatch {
 //   id: string,
