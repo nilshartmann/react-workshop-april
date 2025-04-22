@@ -57,7 +57,7 @@ To ensure everything runs smoothly during the workshop, **please complete the fo
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/nilshartmann/react19-training
+   git clone https://github.com/nilshartmann/react-workshop-april
    ```
 
 > Note that I will upgrade the repository one more time before the workshop!
