@@ -1,6 +1,7 @@
 import { useState } from "react";
 import MatchesByLeagueList from "./MatchesByLeagueList.tsx";
-import { generateDummyMatchItems } from "../dummy-data.ts";
+import { __dummy_leagues, generateDummyMatchItems } from "../dummy-data.ts";
+import MultiSelect from "./MultiSelect.tsx";
 
 export default function SettingsForm() {
 
@@ -13,6 +14,8 @@ export default function SettingsForm() {
 
   const [ name, setName ] = useState<string>("Susi Müller");
   const [ matchesPerLeague, setMatchesPerLeague ] = useState<number>(2);
+  const [leagueIds, setLeagueIds] = useState<string[]>([]);
+
 
   const handleMatchesPerLeagueChange = (newValue: string) => {
 
@@ -48,6 +51,13 @@ export default function SettingsForm() {
           value={matchesPerLeague}
           onChange={(e) => handleMatchesPerLeagueChange(e.target.value)}
         />
+
+        <MultiSelect
+          options={__dummy_leagues}
+          selectedIds={leagueIds}
+          onSelectionChange={newLeagueIds => setLeagueIds(newLeagueIds)}
+        />
+
       </form>
       <button
         disabled={name.length < 5}
@@ -59,7 +69,7 @@ export default function SettingsForm() {
       <MatchesByLeagueList
         title={title}
         matchesByLeagueList={
-        generateDummyMatchItems(["bl1"], matchesPerLeague)
+        generateDummyMatchItems(leagueIds, matchesPerLeague)
         } />
 
     </div>
