@@ -9,13 +9,16 @@ import ky from "ky";
 // "Rules of React": https://react.dev/reference/rules
 // "Rules of Hook": https://react.dev/reference/rules#rules-of-hooks
 
+// Presentation Components
+// Controller Components
+
 // Virtual DOM
 // 1. Render Phase => Virtual DOM, keine Seiteneffekt
 // 2. Commit Phase => Virtual DOM => in den richtigem DOM überführt
 //
 // 1. "Susi Müller!"  |  setName
 // 2. 2  | setMatchesPerLeague
-export default function SettingsForm() {
+export default function SettingsForm(/* onSave(...) */) {
 
   // console.log(new Date().toLocaleTimeString());
 

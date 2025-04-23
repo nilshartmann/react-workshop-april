@@ -285,10 +285,22 @@ app.get("/api/users/:userId/my-matchdays", (req, res) => {
       .json({ error: `No such user '${req.params.userId}'` });
   }
 
-  const result = getMatchesByLeague(
+  let result = getMatchesByLeague(
     sortLeagues(user.leagueIds),
     user.matchesPerLeague,
   );
+
+  if (req.query.fail !== undefined) {
+    // simulate invalid response
+    const failingResult = [...result];
+    result[0].league = {
+      id: "1",
+      name: null,
+    };
+    return res.status(200).json(failingResult);
+  }
+
+
   return res.status(200).json(result);
 });
 

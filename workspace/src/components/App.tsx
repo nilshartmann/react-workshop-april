@@ -36,9 +36,9 @@ export default function App() {
   const result = useSuspenseQuery({
     queryKey: ["users", "1", "settings"],
     async queryFn() {
-      const response = await ky.get<MatchesByLeague[]>("http://localhost:7100/api/users/1/my-matchdays")
+      const response = await ky.get("http://localhost:7100/api/users/1/my-matchdays?fail")
         .json();
-      return response;
+      return MatchesByLeague.array().parse(response)
     }
   })
 
