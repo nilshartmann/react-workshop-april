@@ -1,4 +1,4 @@
-import { League, Match } from "../types.ts";
+import { League, Match, MatchesByLeague } from "../types.ts";
 import MatchRow from "./MatchRow.tsx";
 import { Fragment } from "react";
 
@@ -7,10 +7,6 @@ import { Fragment } from "react";
 //   {league: "2. BL", matches: []}
 // ]
 
-type MatchesByLeague = {
-  league: League,
-  matches: Match[]
-}
 
 type MatchesByLeagueListProps = {
   title?: string;

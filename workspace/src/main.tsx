@@ -6,6 +6,7 @@ import App from "./components/App.tsx";
 import { StrictMode } from "react";
 import { createQueryClient } from "./create-query-client.ts";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const rootElement = document.getElementById("root");
 
@@ -21,6 +22,7 @@ createRoot(rootElement).render(
     <div className={"container mx-auto pt-8"}>
       <App />
     </div>
+    <ReactQueryDevtools />
   </QueryClientProvider>
 // </StrictMode>,
 );

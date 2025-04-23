@@ -26,3 +26,9 @@ export type League = {
 //   homeGoals: number,
 //   awayGoals: number
 // }
+
+
+export type MatchesByLeague = {
+  league: League,
+  matches: Match[]
+}

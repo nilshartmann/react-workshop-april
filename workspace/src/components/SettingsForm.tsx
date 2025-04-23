@@ -3,7 +3,7 @@ import MatchesByLeagueList from "./MatchesByLeagueList.tsx";
 import { __dummy_leagues, generateDummyMatchItems } from "../dummy-data.ts";
 import MultiSelect from "./MultiSelect.tsx";
 import { useWindowTitle } from "./use-window-title.ts";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ky from "ky";
 
 // "Rules of React": https://react.dev/reference/rules
@@ -40,6 +40,8 @@ export default function SettingsForm() {
     }
   }
 
+  const queryClient = useQueryClient();
+
   const saveSettingsMutation = useMutation({
     mutationFn() {
       return ky.put("http://localhost:7100/api/users/1?slowdown=1200", {
@@ -49,6 +51,11 @@ export default function SettingsForm() {
           leagueIds: leagueIds
         }
       }).json()
+    },
+    onSuccess() {
+      queryClient.refetchQueries({
+        queryKey: ["users", "1"]
+      })
     }
   })
 
