@@ -27,6 +27,9 @@ type MatchRowProps = {
 // export default function MatchRow({ match }: {
 //   match: Match;
 // }) {
+
+// pure function
+
 export default function MatchRow({ match }: MatchRowProps) {
   const homeTeamClassName =
     match.homeGoals > match.awayGoals ? "font-bold" : "";

@@ -1,8 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MatchesByLeagueList from "./MatchesByLeagueList.tsx";
 import { __dummy_leagues, generateDummyMatchItems } from "../dummy-data.ts";
 import MultiSelect from "./MultiSelect.tsx";
+import { useWindowTitle } from "./use-window-title.ts";
 
+// "Rules of React": https://react.dev/reference/rules
+// "Rules of Hook": https://react.dev/reference/rules#rules-of-hooks
+
+// Virtual DOM
+// 1. Render Phase => Virtual DOM, keine Seiteneffekt
+// 2. Commit Phase => Virtual DOM => in den richtigem DOM überführt
+//
+// 1. "Susi Müller!"  |  setName
+// 2. 2  | setMatchesPerLeague
 export default function SettingsForm() {
 
   // console.log(new Date().toLocaleTimeString());
@@ -12,16 +22,18 @@ export default function SettingsForm() {
   // const name = state[0];
   // const setName = state[1];
 
-  const [ name, setName ] = useState<string>("Susi Müller");
+  // Hook-Funktionen
+  //
+  const [name, setName] = useState<string>("Susi Müller");
   const [ matchesPerLeague, setMatchesPerLeague ] = useState<number>(2);
   const [leagueIds, setLeagueIds] = useState<string[]>([]);
-
+  useWindowTitle(`${name}'s Settings`)
 
   const handleMatchesPerLeagueChange = (newValue: string) => {
 
 
     const nv = parseInt(newValue, 10);
-    if (nv >= 0) {
+    if (nv >= 0 && nv <= 20) {
       setMatchesPerLeague(nv);
     }
   }
@@ -35,8 +47,12 @@ export default function SettingsForm() {
   const title = `${name}'s Leagues`;
   // const title = name + "' Leagues;"
 
+
+
+
   return (
     <div>
+      {/*<title>Setting</title>*/}
       <form className={"SettingsForm"}>
         <label>Name</label>
         <input

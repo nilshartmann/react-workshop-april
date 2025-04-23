@@ -4,6 +4,8 @@ import { Matches } from "@tanstack/react-router";
 import MatchesByLeagueList from "./MatchesByLeagueList.tsx";
 import { generateDummyMatchItems } from "../dummy-data.ts";
 import SettingsForm from "./SettingsForm.tsx";
+import { useState } from "react";
+import { vi } from "vitest";
 
 const ersterSpielTag: Match = {
   id: "m1",
@@ -28,12 +30,14 @@ const allMatches = [
 const leagues = generateDummyMatchItems(["bl1", "bl2"], 4);
 
 export default function App() {
+  const [visible, setVisible] = useState(false);
   return (
     <div className={"container mx-auto pt-8"}>
       {/*<MatchRow match={ersterSpielTag}/>*/}
       {/*<MatchRow match={zweiterSpielTag}/>*/}
       {/*<MatchesByLeagueList matchesByLeagueList={leagues} />*/}
-      <SettingsForm />
+      <button onClick={() => setVisible(!visible)}>Show/Hide</button>
+      {visible && <SettingsForm />}
 
     </div>
   );
