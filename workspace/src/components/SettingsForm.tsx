@@ -3,6 +3,8 @@ import MatchesByLeagueList from "./MatchesByLeagueList.tsx";
 import { __dummy_leagues, generateDummyMatchItems } from "../dummy-data.ts";
 import MultiSelect from "./MultiSelect.tsx";
 import { useWindowTitle } from "./use-window-title.ts";
+import { useMutation } from "@tanstack/react-query";
+import ky from "ky";
 
 // "Rules of React": https://react.dev/reference/rules
 // "Rules of Hook": https://react.dev/reference/rules#rules-of-hooks
@@ -38,8 +40,21 @@ export default function SettingsForm() {
     }
   }
 
+  const saveSettingsMutation = useMutation({
+    mutationFn() {
+      return ky.put("http://localhost:7100/api/users/1?slowdown=1200", {
+        json: {
+          name: name,
+          matchesPerLeague,
+          leagueIds: leagueIds
+        }
+      }).json()
+    }
+  })
+
   const handleSave = () => {
-    console.log(name, matchesPerLeague)
+    console.log(name, matchesPerLeague);
+    saveSettingsMutation.mutate();
   }
 
   const nameLength = name.length;
@@ -76,11 +91,14 @@ export default function SettingsForm() {
 
       </form>
       <button
-        disabled={name.length < 5}
         onClick={() => handleSave()}
         type="button">
         Save
       </button>
+
+      {saveSettingsMutation.isPending && <p>Please Wait!</p>}
+      {saveSettingsMutation.isSuccess && <p>Daten gespeichert!</p>}
+      {saveSettingsMutation.isError && <p>Saving failed {String(saveSettingsMutation.error)}</p>}
 
       <MatchesByLeagueList
         title={title}
