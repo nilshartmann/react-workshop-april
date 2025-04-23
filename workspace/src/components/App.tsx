@@ -30,14 +30,12 @@ const allMatches = [
 const leagues = generateDummyMatchItems(["bl1", "bl2"], 4);
 
 export default function App() {
-  const [visible, setVisible] = useState(true);
   return (
     <div className={"container mx-auto pt-8"}>
       {/*<MatchRow match={ersterSpielTag}/>*/}
       {/*<MatchRow match={zweiterSpielTag}/>*/}
       {/*<MatchesByLeagueList matchesByLeagueList={leagues} />*/}
-      <button onClick={() => setVisible(!visible)}>Show/Hide</button>
-      {visible && <SettingsForm />}
+      <SettingsForm />
 
     </div>
   );
