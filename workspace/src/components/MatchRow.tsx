@@ -37,7 +37,7 @@ export default function MatchRow({ match }: MatchRowProps) {
   const awayTeamClassName =
     match.homeGoals < match.awayGoals ? "font-bold" : "";
 
-  console.log(match);
+  // console.log(match);
 
   // class -> className
   // for -> htmlFor
