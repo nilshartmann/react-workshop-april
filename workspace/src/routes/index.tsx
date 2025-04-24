@@ -20,6 +20,9 @@ function IndexRouteComponent() {
   })
   return <>
     <Link to={"/settings"}>Settings</Link>
+    <Link to={"/user/$name"} params={{
+      name: "Susi"
+    }}>Hello User!</Link>
     <MatchesByLeagueList matchesByLeagueList={result.data} />
     </>
 }

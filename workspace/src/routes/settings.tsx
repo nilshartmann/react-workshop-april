@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useLocation } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
 import SettingsForm from "../components/SettingsForm.tsx";
 
 export const Route = createFileRoute('/settings')({
@@ -8,8 +8,11 @@ export const Route = createFileRoute('/settings')({
 function RouteComponent() {
 
   const location = useLocation();
+  // location.pathname
 
-  return <> <Link to={"/"}>Home</Link>
+  return <> <Link
+    to={"/"}>Home</Link>
+    <Outlet />
     <SettingsForm />
   </>
 }
