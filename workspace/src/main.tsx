@@ -7,6 +7,8 @@ import { StrictMode } from "react";
 import { createQueryClient } from "./create-query-client.ts";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { routeTree } from "./routeTree.gen.ts";
 
 const rootElement = document.getElementById("root");
 
@@ -16,12 +18,25 @@ if (rootElement === null) {
 
 const queryClient = createQueryClient();
 
+const router = createRouter({
+  routeTree,
+  context: {
+    queryClient
+  }
+})
+
+
+// Register the router instance for type safety
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
+
 createRoot(rootElement).render(
   // <StrictMode>
   <QueryClientProvider client={queryClient}>
-    <div className={"container mx-auto pt-8"}>
-      <App />
-    </div>
+    <RouterProvider router={router} />
     <ReactQueryDevtools />
   </QueryClientProvider>
 // </StrictMode>,
