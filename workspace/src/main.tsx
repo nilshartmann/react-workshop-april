@@ -10,11 +10,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen.ts";
 
-const rootElement = document.getElementById("root");
-
-if (rootElement === null) {
-  throw new Error("Cannot find the root element");
-}
 
 const queryClient = createQueryClient();
 
@@ -31,6 +26,12 @@ declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;
   }
+}
+
+const rootElement = document.getElementById("root");
+
+if (rootElement === null) {
+  throw new Error("Cannot find the root element");
 }
 
 createRoot(rootElement).render(
