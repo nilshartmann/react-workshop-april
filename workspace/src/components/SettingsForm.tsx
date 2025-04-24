@@ -18,7 +18,12 @@ import ky from "ky";
 //
 // 1. "Susi Müller!"  |  setName
 // 2. 2  | setMatchesPerLeague
-export default function SettingsForm(/* onSave(...) */) {
+
+type SettingFormProps = {
+  onFormSaved?: (name: string) => void;
+}
+
+export default function SettingsForm({onFormSaved}:SettingFormProps) {
 
   // console.log(new Date().toLocaleTimeString());
 
@@ -29,16 +34,14 @@ export default function SettingsForm(/* onSave(...) */) {
 
   // Hook-Funktionen
   //
-  const [name, setName] = useState<string>("Susi Müller");
+  const [name, setName] = useState<string>("Susi");
   const [ matchesPerLeague, setMatchesPerLeague ] = useState<number>(2);
   const [leagueIds, setLeagueIds] = useState<string[]>([]);
   useWindowTitle(`${name}'s Settings`)
 
   const handleMatchesPerLeagueChange = (newValue: string) => {
-
-
     const nv = parseInt(newValue, 10);
-    if (nv >= 0 && nv <= 20) {
+    if (nv >= 0 && nv <= 200) {
       setMatchesPerLeague(nv);
     }
   }
@@ -62,9 +65,12 @@ export default function SettingsForm(/* onSave(...) */) {
     }
   })
 
-  const handleSave = () => {
+  const handleSave = async () => {
     console.log(name, matchesPerLeague);
-    saveSettingsMutation.mutate();
+    await saveSettingsMutation.mutateAsync();
+    if (onFormSaved) {
+      onFormSaved(name);
+    }
   }
 
   const nameLength = name.length;
@@ -79,15 +85,20 @@ export default function SettingsForm(/* onSave(...) */) {
     <div>
       {/*<title>Setting</title>*/}
       <form className={"SettingsForm"}>
-        <label>Name</label>
+        <label htmlFor={"nameInput"}>Name</label>
+        <div>
         <input
+          id={"nameInput"}
           type={"text"}
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
 
-        <label>Matches per League</label>
+        {name.length < 5 && <p>Please enter a name with at least 5 chars</p>}
+        </div>
+        <label htmlFor={"matchesPerLeagueInput"}>Matches per League</label>
         <input
+          id={"matchesPerLeagueInput"}
           type={"number"}
           value={matchesPerLeague}
           onChange={(e) => handleMatchesPerLeagueChange(e.target.value)}
@@ -101,6 +112,7 @@ export default function SettingsForm(/* onSave(...) */) {
 
       </form>
       <button
+        disabled={name.length<5}
         onClick={() => handleSave()}
         type="button">
         Save
